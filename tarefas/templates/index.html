@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tarefas/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+    <div class="container-sm">
+        <nav>
+            <ul class="nav justify-content-center">
+                <a class="nav-link" href="{% url 'index' %}">
+                    <li class="nav-item">Lista de Tarefas</li>
+                </a>
+                <a class="nav-link" href="{% url 'cria' %}">
+                    <li class="nav-item">Nova Tarefa</li>
+                </a>
+                <!--<a class="nav-link" href="{% url 'index' %}">
+                    <li class="nav-item">Tarefas</li>
+                </a> -->
+            </ul>
+        </nav>
+        {% if tarefa %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tarefa</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trf in tarefa %}
+                        <tr>
+                            <th scope="row">{{ trf.id }}</th>
+                            <td><span class="{{ trf.status }}">{{ trf.tarefa }}</span></td>
+                            <td>
+                                <a href="{% url 'conclui' trf.id %}">
+                                    <button type="button" class="btn btn-warning">{{ trf.btn }}</button>
+                                </a>
+
+                                <a href="{% url 'exclui' trf.id %}">
+                                    <button type="button" class="btn btn-danger">Excluir</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>Ah não!!!</h1>
+            <p>Parece que não temos tarefas cadastradas ainda. <a href="{% url 'cria' %}">Cadastre alguma agora mesmo!!!</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>
