@@ -6,7 +6,7 @@ class TarefaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TarefaForm, self).__init__(*args, **kwargs)
         for key, value in self.fields.items():
-            value.widget.attrs['class'] = 'form-control'
+            value.widget.attrs['class'] = 'form-control-md'
 
     class Meta:
         model = Tarefa
